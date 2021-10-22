@@ -34,7 +34,7 @@
 }
 
 .main__left {
-  flex: 0.7;
+  flex: 0.75;
   display: flex;
   flex-direction: column;
 }
@@ -106,13 +106,16 @@ video {
 .main__right {
   display: flex;
   flex-direction: column;
-  flex: 0.3;
+  flex: 0.25;
   background-color: #0c3e4b;
 }
-
+.example {
+  overflow-wrap: break-word;
+}
 .main__chat_window {
   flex-grow: 1;
   overflow-y: scroll;
+  
 }
 
 .main__chat_window::-webkit-scrollbar {

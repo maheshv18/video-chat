@@ -51,12 +51,18 @@ navigator.mediaDevices
         addVideoStream(video, userVideoStream);
       });
     });
+    
 
     /*socket.on("user-connected", (userId) => {
       connectToNewUser(userId, stream);
     });*/
   });
-
+  socket.onstreamended = function(e) {
+    if (e.mediaElement.parentNode) e.mediaElement.parentNode.removeChild(e.videoGrid);
+};
+  peer.on("open", (id) => {
+    socket.emit("join-room", ROOM_ID, id, user);
+  });
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream);
   const video = document.createElement("video");
@@ -67,12 +73,8 @@ const connectToNewUser = (userId, stream) => {
 
 	peers[userId] = call
 };
-socket.on('user-disconnected', (userId) => {
-	if (peers[userId]) peers[userId].close()
-})
-peer.on("open", (id) => {
-  socket.emit("join-room", ROOM_ID, id, user);
-});
+
+
 
 const addVideoStream = (video, stream) => {
   video.srcObject = stream;
@@ -128,12 +130,6 @@ peer.on('connection', function(connection){
 });
 
 endButton.addEventListener("click", () => {
-  
-  setCallEnded(true);
-
-  conn.current.destroy();
-
-  window.location.reload();
 });
 
 stopVideo.addEventListener("click", () => {
