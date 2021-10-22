@@ -130,6 +130,14 @@ peer.on('connection', function(connection){
 });
 
 endButton.addEventListener("click", () => {
+  if (confirm('Are you sure you want to leave?')) {
+    window.open("https://acment.in","_self")
+   
+  } else {
+    // Do nothing!
+   
+  }
+  
 });
 
 stopVideo.addEventListener("click", () => {
