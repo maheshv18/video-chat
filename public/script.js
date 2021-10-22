@@ -11,14 +11,14 @@ backBtn.addEventListener("click", () => {
   document.querySelector(".main__left").style.flex = "1";
   document.querySelector(".main__right").style.display = "none";
   document.querySelector(".header__back").style.display = "none";
-});
+})
 
 showChat.addEventListener("click", () => {
   document.querySelector(".main__right").style.display = "flex";
   document.querySelector(".main__right").style.flex = "1";
   document.querySelector(".main__left").style.display = "none";
   document.querySelector(".header__back").style.display = "block";
-});
+})
 
 const user = prompt("Enter your name");
 var peer = new Peer()
@@ -26,7 +26,7 @@ const myPeer = new Peer(undefined, {
   path: "/peerjs",
   host: "/",
   port: "3030",
-});
+})
 const peers = {}
 let myVideoStream;
 navigator.mediaDevices
@@ -37,11 +37,7 @@ navigator.mediaDevices
   .then((stream) => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
-    socket.on('user-connected', (userId) => {
-			connectToNewUser(userId, stream)
-			alert('User connected', userId)
-		})
-
+   
 
     peer.on("call", (call) => {
       
@@ -49,20 +45,27 @@ navigator.mediaDevices
       const video = document.createElement("video");
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
-      });
-    });
-    
+      })
+    })
+
+    socket.on('user-connected', (userId) => {
+			connectToNewUser(userId, stream)
+			alert('User connected', userId)
+		})
+  })
+
+    socket.on('user-disconnected', userId => {
+      if (peers[userId]) peers[userId].close()
+    })
 
     /*socket.on("user-connected", (userId) => {
       connectToNewUser(userId, stream);
     });*/
-  });
-  socket.onstreamended = function(e) {
-    if (e.mediaElement.parentNode) e.mediaElement.parentNode.removeChild(e.videoGrid);
-};
+  
+ 
   peer.on("open", (id) => {
     socket.emit("join-room", ROOM_ID, id, user);
-  });
+  })
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream);
   const video = document.createElement("video");
@@ -72,7 +75,7 @@ const connectToNewUser = (userId, stream) => {
   
 
 	peers[userId] = call
-};
+}
 
 
 
@@ -110,7 +113,7 @@ const inviteButton = document.querySelector("#inviteButton");
 const muteButton = document.querySelector("#muteButton");
 const stopVideo = document.querySelector("#stopVideo");
 const endButton = document.querySelector("#endButton");
-
+const shareButton = document.querySelector("#shareButton");
 muteButton.addEventListener("click", () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
   if (enabled) {
