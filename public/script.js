@@ -3,7 +3,10 @@ const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 const showChat = document.querySelector("#showChat");
 const backBtn = document.querySelector(".header__back");
-
+var screenSharing = false
+var screenStream;
+var currentPeer = null
+var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 myVideo.muted = true;
 let conn;
 backBtn.addEventListener("click", () => {
@@ -46,12 +49,14 @@ navigator.mediaDevices
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
       })
+      currentPeer=call
     })
 
     socket.on('user-connected', (userId) => {
 			connectToNewUser(userId, stream)
 			alert('User connected', userId)
 		})
+    currentPeer = call;
   })
 
     socket.on('user-disconnected', userId => {
@@ -143,6 +148,42 @@ endButton.addEventListener("click", () => {
   
 });
 
+shareButton.addEventListener("click", () => {
+  if (screenSharing==true) {
+        stopScreenSharing()
+    }
+    var screenSharing = true
+    navigator.mediaDevices.getDisplayMedia({ video: true }).then((stream) => {
+        screenStream = stream;
+        let videoTrack = screenStream.getVideoTracks()[0];
+        videoTrack.onended = () => {
+            stopScreenSharing()
+        }
+        if (peer) {
+            let sender = currentPeer.peerConnection.getSenders().find(function (s) {
+                return s.track.kind == videoTrack.kind;
+            })
+            sender.replaceTrack(videoTrack)
+            screenSharing = true
+        }
+        console.log(screenStream)
+    })
+  
+});
+function stopScreenSharing() {
+ // if (!screenSharing) return;
+  let videoTrack = local_stream.getVideoTracks()[0];
+  if (peer) {
+      let sender = currentPeer.peerConnection.getSenders().find(function (s) {
+          return s.track.kind == videoTrack.kind;
+      })
+      sender.replaceTrack(videoTrack)
+  }
+  screenStream.getTracks().forEach(function (track) {
+      track.stop();
+  });
+  screenSharing = false
+}
 stopVideo.addEventListener("click", () => {
   const enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
