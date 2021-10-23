@@ -4,6 +4,8 @@ const myVideo = document.createElement("video");
 const showChat = document.querySelector("#showChat");
 const backBtn = document.querySelector(".header__back");
 var screenSharing = false
+var local_stream;
+var peer= null
 var screenStream;
 var currentPeer = null
 var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -56,7 +58,7 @@ navigator.mediaDevices
 			connectToNewUser(userId, stream)
 			alert('User connected', userId)
 		})
-    currentPeer = call;
+   
   })
 
     socket.on('user-disconnected', userId => {
@@ -95,6 +97,7 @@ const addVideoStream = (video, stream) => {
 function removeVideoStream(elementId) {
   let remoteDiv = document.getElementById(elementId);
   if (remoteDiv) remoteDiv.parentNode.removeChild(remoteDiv);
+  
 };
 let text = document.querySelector("#chat_message");
 let send = document.getElementById("send");
