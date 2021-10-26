@@ -1,6 +1,6 @@
 const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
-const myVideo = document.createElement("video");
+
 const showChat = document.querySelector("#showChat");
 const backBtn = document.querySelector(".header__back");
 var screenSharing = false
@@ -9,7 +9,7 @@ var peer= null
 var screenStream;
 var currentPeer = null
 var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-myVideo.muted = true;
+
 let conn;
 backBtn.addEventListener("click", () => {
   document.querySelector(".main__left").style.display = "flex";
@@ -28,23 +28,25 @@ showChat.addEventListener("click", () => {
 const user = prompt("Enter your name");
 var peer = new Peer()
 const myPeer = new Peer(undefined, {
-  path: "/peerjs",
+  //path: "/peerjs",
   host: "/",
-  port: "3030",
+  port: "303",
 })
+const myVideo = document.createElement('video');
+myVideo.muted = true;
 const peers = {}
 let myVideoStream;
 navigator.mediaDevices
   .getUserMedia({
-    audio: true,
-    video: true,
+    audio: true ||false,
+    video: true || false,
   })
   .then((stream) => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
    
 
-    peer.on("call", (call) => {
+    peer.on("call", call => {
       
       call.answer(stream);
       const video = document.createElement("video");
@@ -54,7 +56,7 @@ navigator.mediaDevices
       currentPeer=call
     })
 
-    socket.on('user-connected', (userId) => {
+    socket.on('user-connected', userId => {
 			connectToNewUser(userId, stream)
 			alert('User connected', userId)
 		})
@@ -70,16 +72,19 @@ navigator.mediaDevices
     });*/
   
  
-  peer.on("open", (id) => {
+  peer.on("open", id => {
     socket.emit("join-room", ROOM_ID, id, user);
   })
 const connectToNewUser = (userId, stream) => {
   const call = peer.call(userId, stream);
   const video = document.createElement("video");
-  call.on("stream", (userVideoStream) => {
+  call.on("stream", userVideoStream => {
     addVideoStream(video, userVideoStream);
-  });
+  })
   
+  call.on('close',() => {
+    video.remove();
+  })
 
 	peers[userId] = call
 }
@@ -90,9 +95,9 @@ const addVideoStream = (video, stream) => {
   video.srcObject = stream;
   video.addEventListener("loadedmetadata", () => {
     video.play();
-    videoGrid.append(video);
+    
   });
-  
+  videoGrid.append(video);
 };
 function removeVideoStream(elementId) {
   let remoteDiv = document.getElementById(elementId);
@@ -152,10 +157,10 @@ endButton.addEventListener("click", () => {
 });
 
 shareButton.addEventListener("click", () => {
-  if (screenSharing==true) {
+ if (screenSharing==true) {
         stopScreenSharing()
     }
-    var screenSharing = true
+   // var screenSharing = true
     navigator.mediaDevices.getDisplayMedia({ video: true }).then((stream) => {
         screenStream = stream;
         let videoTrack = screenStream.getVideoTracks()[0];

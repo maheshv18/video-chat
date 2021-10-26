@@ -17,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh;
+  height: 6vh;
   position: relative;
   width: 100%;
   background-color: var(--main-darklg);
@@ -29,7 +29,7 @@
 
 .main {
   overflow: hidden;
-  height: 92vh;
+  height: 95vh;
   display: flex;
 }
 
@@ -49,10 +49,10 @@
 }
 
 video {
-  height: 400px;
+  height: 500px;
   border-radius: 1rem;
   margin: 0.5rem;
-  width: 450px;
+  width: 510px;
   object-fit: cover;
   
   
