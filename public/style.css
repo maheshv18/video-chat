@@ -49,10 +49,10 @@
 }
 
 video {
-  height: 500px;
+  height: 70vh;
   border-radius: 1rem;
   margin: 0.5rem;
-  width: 510px;
+  width: 70vh;
   object-fit: cover;
   
   
@@ -61,6 +61,7 @@ video {
 .options {
   padding: 1rem;
   display: flex;
+  
   background-color: var(--main-darklg);
 }
 
@@ -95,7 +96,7 @@ video {
   color: var(--main-light);
   font-size: 1.2rem;
   width: 50px;
-  margin-left: 750px;
+  margin-left: 20px;
 }
 
 .background__red {
@@ -174,7 +175,7 @@ video {
 }
 
 #showChat {
-  display: none;
+  display:flex;
 }
 
 .header__back {
