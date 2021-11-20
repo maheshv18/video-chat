@@ -61,7 +61,7 @@ video {
 .options {
   padding: 1rem;
   display: flex;
-  
+  width: fit-content;
   background-color: var(--main-darklg);
 }
 
