@@ -145,7 +145,7 @@ peer.on('connection', function(connection){
 
 endButton.addEventListener("click", () => {
   if (confirm('Are you sure you want to leave?')) {
-    window.open("https://acment.in","_self")
+    window.open("https://maheshv18.github.io/Video-chat-thankyou/","_self")
    
   } else {
     // Do nothing!
@@ -158,13 +158,13 @@ shareButton.addEventListener("click", () => {
  /*if (screenSharing==true) {
         stopScreenSharing()
     }*/
-   // var screenSharing = true
+    var screenSharing = true
     navigator.mediaDevices.getDisplayMedia({ video: true }).then((stream) => {
         screenStream = stream;
         let videoTrack = screenStream.getVideoTracks()[0];
-        videoTrack.onended = () => {
+       /* videoTrack.onended = () => {
             stopScreenSharing()
-        }
+        }*/
         if (peer) {
             let sender = currentPeer.peerConnection.getSenders().find(function (s) {
                 return s.track.kind == videoTrack.kind;
