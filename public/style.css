@@ -17,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 6vh;
+  height: 5vh;
   position: relative;
   width: 100%;
   background-color: var(--main-darklg);
@@ -45,23 +45,27 @@
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  
   background-color: var(--main-dark);
 }
 
 video {
-  height: 70vh;
+  height: 65vh;
   border-radius: 1rem;
   margin: 0.5rem;
-  width: 70vh;
+  width: 65vh;
   object-fit: cover;
   
   
 }
 
 .options {
-  padding: 1rem;
+  padding-right: 1rem;
+  padding-top: 00.5rem;
+  padding-bottom: 00.5rem;
   display: flex;
-  width: fit-content;
+  width:auto;
+  height: fit-content;
   background-color: var(--main-darklg);
 }
 
@@ -78,11 +82,11 @@ video {
   justify-content: center;
   align-items: center;
   background-color: var(--primary-color);
-  height: 50px;
+  height: 40px;
   border-radius: 5px;
   color: var(--main-light);
   font-size: 1.2rem;
-  width: 50px;
+  width: 40px;
   margin: 0 0.5rem;
 }
 
@@ -91,11 +95,11 @@ video {
   justify-content: center;
   align-items: center;
   background-color: red;
-  height: 50px;
+  height: 40px;
   border-radius: 5px;
   color: var(--main-light);
   font-size: 1.2rem;
-  width: 50px;
+  width: 40px;
   margin-left: 20px;
 }
 
@@ -130,7 +134,7 @@ video {
 }
 
 .main__message_container > input {
-  height: 50px;
+  height: 40px;
   flex: 1;
   font-size: 1rem;
   border-radius: 5px;
