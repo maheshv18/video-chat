@@ -155,9 +155,9 @@ endButton.addEventListener("click", () => {
 });
 
 shareButton.addEventListener("click", () => {
- if (screenSharing==true) {
+ /*if (screenSharing==true) {
         stopScreenSharing()
-    }
+    }*/
    // var screenSharing = true
     navigator.mediaDevices.getDisplayMedia({ video: true }).then((stream) => {
         screenStream = stream;

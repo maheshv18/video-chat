@@ -17,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 5vh;
+  height: 7vh;
   position: relative;
   width: 100%;
   background-color: var(--main-darklg);
@@ -29,7 +29,7 @@
 
 .main {
   overflow: hidden;
-  height: 95vh;
+  height: 93vh;
   display: flex;
 }
 
@@ -152,10 +152,11 @@ video {
 .message {
   display: flex;
   flex-direction: column;
+  width: fit-content;
 }
 
 .message > b {
-  color: #eeeeee;
+  color: #cce9f1;
   display: flex;
   align-items: center;
   text-transform: capitalize;
@@ -167,7 +168,7 @@ video {
 }
 
 .message > span {
-  background-color: #eeeeee;
+  background-color: #cce9f1;
   margin: 1rem 0;
   padding: 1rem;
   border-radius: 5px;
