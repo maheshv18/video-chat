@@ -8,3 +8,5 @@ Run it using
 - npm start
 
 and open localhost:3030 on your web browser
+
+![Output](https://github.com/maheshv18/video-chat/blob/master/public/img/img1.JPG)
