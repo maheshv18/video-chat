@@ -94,6 +94,11 @@ const addVideoStream = (video, stream) => {
   video.addEventListener("loadedmetadata", () => {
     video.play();
     videoGrid.append(video);
+   
+  
+        video.setAttribute("controls","controls")   
+      
+    
   });
   
 };
@@ -153,6 +158,8 @@ endButton.addEventListener("click", () => {
   }
   
 });
+
+
 
 shareButton.addEventListener("click", () => {
  /*if (screenSharing==true) {
