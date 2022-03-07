@@ -165,7 +165,7 @@ peer.on('connection', function(connection){
 
 endButton.addEventListener("click", () => {
   if (confirm('Are you sure you want to leave?')) {
-    window.open("https://github.com/","_self")
+    window.open("https://github.com/maheshv18","_self")
    
   } else {
    
