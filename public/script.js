@@ -1,3 +1,4 @@
+var x=0;
 const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement('video');
@@ -7,10 +8,23 @@ var screenSharing = false
 var local_stream;
 var peer= null
 var screenStream;
+
 var currentPeer = null
 var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 myVideo.muted = true;
 let conn;
+
+
+
+ function applyFilter() 
+ {
+   console.log(x);
+   if(!x){myVideo= myVideo.style.filter = "invert(10%)";x=1}
+    
+    if(x==1){
+      myVideo= myVideo.style.filter = "grayscale(40%)";
+    }
+  }
 backBtn.addEventListener("click", () => {
   document.querySelector(".main__left").style.display = "flex";
   document.querySelector(".main__left").style.flex = "1";
@@ -32,6 +46,7 @@ const myPeer = new Peer(undefined, {
   host: "/",
   port: "3000",
 })
+
 const peers = {}
 let myVideoStream;
 navigator.mediaDevices
@@ -41,13 +56,12 @@ navigator.mediaDevices
   })
   .then((stream) => {
     myVideoStream = stream;
+    
     addVideoStream(myVideo, stream);
-   
-
-    peer.on("call", (call) => {
-      
+    peer.on("call", (call) => {     
       call.answer(stream);
       const video = document.createElement("video");
+      
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
       })
@@ -102,6 +116,7 @@ const addVideoStream = (video, stream) => {
   });
   
 };
+
 function removeVideoStream(elementId) {
   let remoteDiv = document.getElementById(elementId);
   if (remoteDiv) remoteDiv.parentNode.removeChild(remoteDiv);
@@ -150,10 +165,10 @@ peer.on('connection', function(connection){
 
 endButton.addEventListener("click", () => {
   if (confirm('Are you sure you want to leave?')) {
-    window.open("https://maheshv18.github.io/Video-chat-thankyou/","_self")
+    window.open("https://github.com/","_self")
    
   } else {
-    // Do nothing!
+   
    
   }
   
@@ -162,11 +177,10 @@ endButton.addEventListener("click", () => {
 
 
 shareButton.addEventListener("click", () => {
- /*if (screenSharing==true) {
-        stopScreenSharing()
-    }*/
-    var screenSharing = true
-    navigator.mediaDevices.getDisplayMedia({ video: true }).then((stream) => {
+   screenSharing = !screenSharing
+  
+    
+    navigator.mediaDevices.getDisplayMedia({ video: true || false }).then((stream) => {
         screenStream = stream;
         let videoTrack = screenStream.getVideoTracks()[0];
        /* videoTrack.onended = () => {
@@ -185,6 +199,7 @@ shareButton.addEventListener("click", () => {
 });
 function stopScreenSharing() {
  // if (!screenSharing) return;
+ screenSharing=false
   let videoTrack = local_stream.getVideoTracks()[0];
   if (peer) {
       let sender = currentPeer.peerConnection.getSenders().find(function (s) {
@@ -229,3 +244,4 @@ socket.on("createMessage", (message, userName) => {
         <span>${message}</span>
     </div>`;
 });
+
